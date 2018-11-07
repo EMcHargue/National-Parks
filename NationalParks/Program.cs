@@ -160,19 +160,17 @@ namespace NationalParks
                                 Console.WriteLine(namedPark.Name + " has " + namedPark.Acres + " acres.");
                                 Console.WriteLine("");
                             }
-
-
-                        }
-                        else if (name.ToLower() != "back")
-                        {
-                            Console.WriteLine("");
-                            Console.WriteLine("That is not a National Park");
-                            Console.WriteLine("- try adding National Park to the end of the name");
-                            Console.WriteLine("");
+                            else
+                            {
+                                Console.WriteLine("");
+                                Console.WriteLine("That is not a National Park");
+                                Console.WriteLine("");
+                            }
                         }
                     }
 
                     Console.Clear();
+
                 }
                 if (option == "5")
                 {

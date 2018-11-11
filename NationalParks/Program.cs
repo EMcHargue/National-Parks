@@ -151,7 +151,17 @@ namespace NationalParks
 
                         if (name != null)
                         {
-                            bool IsAPark = AllTheParks.IsAPark(name);
+                            // Creates list of Parks that contain the name string 
+                            // for partial entries
+
+                            IEnumerable<Park> QueriedParks = new List<Park>();
+
+                            QueriedParks = from Park park in AllTheParks
+                                           where park.Name.ToLower().Contains(name.ToLower())
+                                           select park;
+
+                            bool IsAPark = AllTheParks.IsAPark(name.ToLower());
+
                             if (IsAPark)
                             {
                                 namedPark = AllTheParks.GetParkByName(name);
@@ -159,6 +169,40 @@ namespace NationalParks
                                 Console.WriteLine(namedPark.Name + " is in " + namedPark.State + ".");
                                 Console.WriteLine(namedPark.Name + " has " + namedPark.Acres + " acres.");
                                 Console.WriteLine("");
+                            }
+
+                            // Suggests park names based on partial entries
+
+                            else if (QueriedParks.Count() != 0)
+                            {
+                                Console.WriteLine("");
+                                Console.WriteLine("Did you mean:");
+                                Console.WriteLine("");
+                                foreach (Park element in QueriedParks)
+                                {
+                                    Console.WriteLine(element.Name);
+                                }
+                                Console.WriteLine("");
+                                Console.WriteLine("Please type the name of your National Park");
+                                Console.WriteLine("");
+
+                                name = Console.ReadLine();
+                                bool twoIsAPark = AllTheParks.IsAPark(name);
+
+                                if (twoIsAPark)
+                                {
+                                    namedPark = AllTheParks.GetParkByName(name);
+                                    Console.WriteLine("");
+                                    Console.WriteLine(namedPark.Name + " is in " + namedPark.State + ".");
+                                    Console.WriteLine(namedPark.Name + " has " + namedPark.Acres + " acres.");
+                                    Console.WriteLine("");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("");
+                                    Console.WriteLine("That is not a National Park");
+                                    Console.WriteLine("");
+                                }
                             }
                             else
                             {

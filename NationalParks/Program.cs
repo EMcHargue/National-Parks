@@ -51,48 +51,16 @@ namespace NationalParks
                 if (option.ToLower() == "quit")
                 {
                     Console.Clear();
-                    bool visited = false;
-                    bool toVisit = false;
 
-                    int visitedCount = fileUtility.Count(VisitedParks);
-                    int toVisitCount = fileUtility.Count(ParksToVisit);
-
-                    if (visitedCount != 0)
-                    {
-                        Console.WriteLine("Do you want to save your list of visited National Parks?");
-                        Console.WriteLine("For Yes, type Y; for No, type N");
-                        string write = Console.ReadLine();
-
-                        if (write.ToLower() == "y")
-                        {
-                            visited = true;
-                        }
-                    }
-
-                    if (toVisitCount != 0)
-                    {
-                        Console.WriteLine("Do you want to save your list of National Parks to visit?");
-                        Console.WriteLine("For Yes, type Y; for No, type N");
-                        string write = Console.ReadLine();
-
-                        if (write.ToLower() == "y")
-                        {
-                            toVisit = true;
-                        }
-                    }
-
-                    if (visited || toVisit)
+                    if (fileUtility.Count(VisitedParks) != 0 || fileUtility.Count(ParksToVisit) != 0)
                     {
                         Console.WriteLine("What is your name?");
                         string fileName = Console.ReadLine() + "'s-National-Parks.txt";
 
                         fileUtility.WriteParks(fileUtility, VisitedParks, ParksToVisit, fileName);
-                        
                     }
 
-
                     clear = false;
-
                 }
                 else if (option == "1")
                 {

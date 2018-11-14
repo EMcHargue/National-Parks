@@ -154,15 +154,9 @@ namespace NationalParks
                             // Creates list of Parks that contain the name string 
                             // for partial entries
 
-                            IEnumerable<Park> QueriedParks = new List<Park>();
+                            IEnumerable<Park> QueriedParks = AllTheParks.ListOfQueriedParks(name);
 
-                            QueriedParks = from Park park in AllTheParks
-                                           where park.Name.ToLower().Contains(name.ToLower())
-                                           select park;
-
-                            bool IsAPark = AllTheParks.IsAPark(name.ToLower());
-
-                            if (IsAPark)
+                            if (AllTheParks.IsAPark(name.ToLower()))
                             {
                                 namedPark = AllTheParks.GetParkByName(name);
                                 Console.WriteLine("");
@@ -175,27 +169,13 @@ namespace NationalParks
 
                             else if (QueriedParks.Count() != 0)
                             {
-                                Console.WriteLine("");
-                                Console.WriteLine("Did you mean:");
-                                Console.WriteLine("");
-                                foreach (Park element in QueriedParks)
-                                {
-                                    Console.WriteLine(element.Name);
-                                }
-                                Console.WriteLine("");
-                                Console.WriteLine("Please type the name of your National Park");
-                                Console.WriteLine("");
+                                string correctName = AllTheParks.SuggestAPark(QueriedParks);
 
-                                name = Console.ReadLine();
-                                bool twoIsAPark = AllTheParks.IsAPark(name);
-
-                                if (twoIsAPark)
+                                if (AllTheParks.IsAPark(correctName))
                                 {
-                                    namedPark = AllTheParks.GetParkByName(name);
-                                    Console.WriteLine("");
-                                    Console.WriteLine(namedPark.Name + " is in " + namedPark.State + ".");
-                                    Console.WriteLine(namedPark.Name + " has " + namedPark.Acres + " acres.");
-                                    Console.WriteLine("");
+                                    namedPark = AllTheParks.GetParkByName(correctName);
+
+                                    AllTheParks.DisplayPark(namedPark);
                                 }
                                 else
                                 {
@@ -251,10 +231,7 @@ namespace NationalParks
                         }
                         else if (name != null)
                         {
-                            bool match = VisitedParks.IsAPark(name);
-                            bool isAPark = AllTheParks.IsAPark(name);
-
-                            if (match)
+                            if (VisitedParks.IsAPark(name))
                             {
                                 Console.WriteLine("");
                                 Console.WriteLine("That National Park is already in your list");
@@ -262,13 +239,52 @@ namespace NationalParks
                                 Console.WriteLine("");
                             }
 
-                            else if (!isAPark)
+                            else if (!AllTheParks.IsAPark(name))
                             {
-                                Console.WriteLine("");
-                                Console.WriteLine("That is not a National Park.");
-                                Console.WriteLine("Enter another National Park, or type 'back' to return to the menu");
-                                Console.WriteLine("");
+                                IEnumerable<Park> QueriedParks = AllTheParks.ListOfQueriedParks(name);
 
+                                if (QueriedParks.Count() != 0)
+                                {
+                                    string correctName = AllTheParks.SuggestAPark(QueriedParks);
+
+                                    if (AllTheParks.IsAPark(correctName))
+                                    {
+                                        Park namedPark = AllTheParks.GetParkByName(correctName);
+
+                                        if (VisitedParks.IsAPark(correctName))
+                                        {
+                                            Console.WriteLine("");
+                                            Console.WriteLine("That National Park is already in your list");
+                                            Console.WriteLine("Enter another National Park, or type 'back' to return to the menu");
+                                            Console.WriteLine("");
+                                        }
+                                        else
+                                        {
+                                            VisitedParks.AddPark(namedPark);
+                                            Console.WriteLine("");
+                                            Console.WriteLine("Add another National Park");
+                                            Console.WriteLine("to view your list of visited National Parks, type 'view'");
+                                            Console.WriteLine("or type 'back' to go back to the menu");
+                                            Console.WriteLine("");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("");
+                                        Console.WriteLine("That is not a National Park");
+                                        Console.WriteLine("Enter another National Park, or type 'back' to return to the menu");
+
+                                        Console.WriteLine("");
+                                    }
+                                    
+                                }
+                                else
+                                { 
+                                    Console.WriteLine("");
+                                    Console.WriteLine("That is not a National Park.");
+                                    Console.WriteLine("Enter another National Park, or type 'back' to return to the menu");
+                                    Console.WriteLine("");
+                                }
                             }
                             else
                             {
@@ -322,10 +338,7 @@ namespace NationalParks
                         }
                         else if (name != null)
                         {
-                            bool match = ParksToVisit.IsAPark(name);
-                            bool isAPark = AllTheParks.IsAPark(name);
-
-                            if (match)
+                            if (ParksToVisit.IsAPark(name))
                             {
                                 Console.WriteLine("");
                                 Console.WriteLine("That National Park is already in your list");
@@ -333,13 +346,52 @@ namespace NationalParks
                                 Console.WriteLine("");
                             }
 
-                            else if (!isAPark)
+                            else if (!AllTheParks.IsAPark(name))
                             {
-                                Console.WriteLine("");
-                                Console.WriteLine("That is not a National Park.");
-                                Console.WriteLine("Enter another National Park, or type 'back' to return to the menu");
-                                Console.WriteLine("");
+                                IEnumerable<Park> QueriedParks = AllTheParks.ListOfQueriedParks(name);
 
+                                if (QueriedParks.Count() != 0)
+                                {
+                                    string correctName = AllTheParks.SuggestAPark(QueriedParks);
+
+                                    if (AllTheParks.IsAPark(correctName))
+                                    {
+                                        Park namedPark = AllTheParks.GetParkByName(correctName);
+
+                                        if (ParksToVisit.IsAPark(correctName))
+                                        {
+                                            Console.WriteLine("");
+                                            Console.WriteLine("That National Park is already in your list");
+                                            Console.WriteLine("Enter another National Park, or type 'back' to return to the menu");
+                                            Console.WriteLine("");
+                                        }
+                                        else
+                                        {
+                                            ParksToVisit.AddPark(namedPark);
+                                            Console.WriteLine("");
+                                            Console.WriteLine("Add another National Park");
+                                            Console.WriteLine("to view your list of National Parks to visit, type 'view'");
+                                            Console.WriteLine("or type 'back' to go back to the menu");
+                                            Console.WriteLine("");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("");
+                                        Console.WriteLine("That is not a National Park");
+                                        Console.WriteLine("Enter another National Park, or type 'back' to return to the menu");
+
+                                        Console.WriteLine("");
+                                    }
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine("");
+                                    Console.WriteLine("That is not a National Park.");
+                                    Console.WriteLine("Enter another National Park, or type 'back' to return to the menu");
+                                    Console.WriteLine("");
+                                }
                             }
                             else
                             {
@@ -348,7 +400,7 @@ namespace NationalParks
                                 ParksToVisit.AddPark(namedPark);
                                 Console.WriteLine("");
                                 Console.WriteLine("Add another National Park");
-                                Console.WriteLine("to view the list of National Parks you would like to visit, type 'view'");
+                                Console.WriteLine("to view your list of visited National Parks, type 'view'");
                                 Console.WriteLine("or type 'back' to go back to the menu");
                                 Console.WriteLine("");
                             }
@@ -359,24 +411,6 @@ namespace NationalParks
 
                 }
             }
-            
-            //        // write lists to file
-
-
-            //        Console.WriteLine("For Yes, type 'Y' - for No, type 'N'");
-            //        Console.WriteLine("Do you want to see all the national parks in the United States of America?");
-            //        string response = Console.ReadLine();
-
-            //        if (response == "Y")
-            //        {
-            //            foreach (Park element in AllTheParks)
-            //            {
-            //                Console.WriteLine(element.Name);
-            //            }
-            //        }
-
-
-            //        Console.WriteLine(AllTheParks[55].Name);
-            }
         }
     }
+}

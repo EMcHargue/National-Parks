@@ -22,7 +22,7 @@ namespace NationalParks
             return ListOfParks.GetEnumerator();
         }
 
-        
+        // Selects park by name from list of parks (Parks)
 
         public Park GetParkByName(string Name)
         {
@@ -42,6 +42,8 @@ namespace NationalParks
             return park;
         }
 
+        // Adds all Park elements to the current list of parks
+
         public List<Park> GetParks()
         {
             List<Park> ParkList = new List<Park>();
@@ -52,16 +54,16 @@ namespace NationalParks
             return ParkList;
         }
 
+        // Adds Park to the list of parks
+
         public void AddPark(Park NamedPark)
         {
             if (ListOfParks == null)
             {
-                ListOfParks[0] = NamedPark;
+                ListOfParks = new List<Park>();
             }
-            else
-            {
-                ListOfParks.Add(NamedPark);
-            }
+
+            ListOfParks.Add(NamedPark);
         }
 
         public bool IsAPark(string Name)
@@ -100,5 +102,46 @@ namespace NationalParks
 
             return SmallestParks;
         }
+
+        // Creates list of National Parks based on partial entries
+
+        public IEnumerable<Park> ListOfQueriedParks(string QueriedPark)
+        {
+            IEnumerable<Park> QueriedParks = new List<Park>();
+
+            QueriedParks = from Park park in ListOfParks
+                           where park.Name.ToLower().Contains(QueriedPark.ToLower())
+                           select park;
+
+            return QueriedParks;
+        }
+
+        public string SuggestAPark(IEnumerable QueriedParks)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Did you mean:");
+            Console.WriteLine("");
+            foreach (Park element in QueriedParks)
+            {
+                Console.WriteLine(element.Name);
+            }
+            Console.WriteLine("");
+            Console.WriteLine("Please type the name of your National Park");
+            Console.WriteLine("");
+            
+            string name = Console.ReadLine();
+            return name;
+
+
+        }
+
+        public void DisplayPark(Park park)
+        {
+            Console.WriteLine("");
+            Console.WriteLine(park.Name + " is in " + park.State + ".");
+            Console.WriteLine(park.Name + " has " + park.Acres + " acres.");
+            Console.WriteLine("");
+        }
+
     }
 }

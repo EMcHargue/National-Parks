@@ -54,15 +54,28 @@ namespace NationalParks
 
         public void WriteParks(FileUtility fileUtility, Parks nationalParks1, Parks nationalParks2, string fileName)
         {
-            using (StreamWriter sw = new StreamWriter(fileName))
-            {
-                if (fileUtility.Count(nationalParks1) != 0)
-                {
-                    Console.WriteLine("Do you want to save your list of visited National Parks?");
-                    Console.WriteLine("For Yes, type Y; for No, type N");
-                    string write = Console.ReadLine();
+            string writeVisited = "n";
+            string writeToVisit = "n";
 
-                    if (write.ToLower() == "y")
+            if (fileUtility.Count(nationalParks1) != 0)
+            {
+                Console.WriteLine("Do you want to save your list of visited National Parks?");
+                Console.WriteLine("For Yes, type Y; for No, type N");
+                writeVisited = Console.ReadLine();
+            }
+
+            if (fileUtility.Count(nationalParks2) != 0)
+            {
+                Console.WriteLine("Do you want to save your list of National Parks to visit?");
+                Console.WriteLine("For Yes, type Y; for No, type N");
+                writeToVisit = Console.ReadLine();
+            }
+
+            if (writeVisited.ToLower() == "y" || writeToVisit.ToLower() == "y")
+            {
+                using (StreamWriter sw = new StreamWriter(fileName))
+                {
+                    if (writeVisited.ToLower() == "y")
                     {
                         sw.WriteLine("Parks you have visited:");
                         foreach (Park element in nationalParks1)
@@ -71,16 +84,9 @@ namespace NationalParks
                         }
                         sw.WriteLine("");
                     }
-                    
-                }
 
-                if (fileUtility.Count(nationalParks2) != 0)
-                {
-                    Console.WriteLine("Do you want to save your list of National Parks to visit?");
-                    Console.WriteLine("For Yes, type Y; for No, type N");
-                    string write = Console.ReadLine();
 
-                    if (write.ToLower() == "y")
+                    if (writeToVisit.ToLower() == "y")
                     {
                         sw.WriteLine("Parks you would like to visit:");
                         foreach (Park element in nationalParks2)

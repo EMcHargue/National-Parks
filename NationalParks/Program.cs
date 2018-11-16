@@ -22,6 +22,7 @@ namespace NationalParks
             Parks VisitedParks = new Parks();
             Parks ParksToVisit = new Parks();
 
+            // Adds all elements in array to Parks list of National Parks
 
             foreach (Park element in ParkArray)
             {
@@ -51,6 +52,8 @@ namespace NationalParks
                 if (option.ToLower() == "quit")
                 {
                     Console.Clear();
+
+                    // Writes visited parks list and parks to visit list to file if lists are not empty
 
                     if (fileUtility.Count(VisitedParks) != 0 || fileUtility.Count(ParksToVisit) != 0)
                     {
@@ -184,6 +187,8 @@ namespace NationalParks
                         }
                         else if (name.ToLower() == "view")
                         {
+                            // Shows list of National Parks that have been added to list of visited parks
+                            
                             Console.WriteLine("");
                             Console.WriteLine("You have visited:");
 
@@ -199,6 +204,8 @@ namespace NationalParks
                         }
                         else if (name != null)
                         {
+                            // Checks to see if park is already in list of visited parks
+
                             if (VisitedParks.IsAPark(name))
                             {
                                 Console.WriteLine("");
@@ -209,6 +216,8 @@ namespace NationalParks
 
                             else if (!AllTheParks.IsAPark(name))
                             {
+                                // Creates list of parks based on partial name and suggests parks
+
                                 IEnumerable<Park> QueriedParks = AllTheParks.ListOfQueriedParks(name);
 
                                 if (QueriedParks.Count() != 0)
@@ -291,6 +300,8 @@ namespace NationalParks
                         }
                         else if (name.ToLower() == "view")
                         {
+                            // Shows list of parks added to list of parks to visit
+
                             Console.WriteLine("");
                             Console.WriteLine("You would like to visit:");
 
@@ -306,6 +317,8 @@ namespace NationalParks
                         }
                         else if (name != null)
                         {
+                            // Checks to see if park is already in list of parks to visit
+
                             if (ParksToVisit.IsAPark(name))
                             {
                                 Console.WriteLine("");
@@ -316,6 +329,8 @@ namespace NationalParks
 
                             else if (!AllTheParks.IsAPark(name))
                             {
+                                // Suggests parks based on partial entries
+
                                 IEnumerable<Park> QueriedParks = AllTheParks.ListOfQueriedParks(name);
 
                                 if (QueriedParks.Count() != 0)

@@ -9,6 +9,8 @@ namespace NationalParks
 {
     class FileUtility
     {
+        // Creates an array with all national parks
+
         public Park[] GetParks()
         {
             Park[] NationalParks = new Park[56];
@@ -37,6 +39,8 @@ namespace NationalParks
             return NationalParks;
         }
 
+        // Counts the number of parks in a Parks list of National Parks
+
         public int Count(Parks NationalParks)
         {
             int count = 0;
@@ -46,20 +50,6 @@ namespace NationalParks
             }
 
             return count;
-        }
-
-        public void WriteParksVisited(Parks nationalParks, string fileName)
-        {
-            using (StreamWriter sw = new StreamWriter(fileName))
-            {
-                sw.WriteLine("Parks you have visited:");
-                foreach (Park element in nationalParks)
-                {
-                    sw.WriteLine(element.Name);
-                }
-                sw.WriteLine("");
-            }
-
         }
 
         public void WriteParks(FileUtility fileUtility, Parks nationalParks1, Parks nationalParks2, string fileName)

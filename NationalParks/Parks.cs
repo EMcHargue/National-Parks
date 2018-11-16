@@ -54,7 +54,7 @@ namespace NationalParks
             return ParkList;
         }
 
-        // Adds Park to the list of parks
+        // Adds single Park to the list of parks
 
         public void AddPark(Park NamedPark)
         {
@@ -65,6 +65,8 @@ namespace NationalParks
 
             ListOfParks.Add(NamedPark);
         }
+
+        // Checks to see if a Park is in a list of Parks
 
         public bool IsAPark(string Name)
         {
@@ -80,6 +82,7 @@ namespace NationalParks
             return isAPark;
         }
 
+        // Lists ten largest National Parks 
 
         public List<Park> MaxAcres()
         {
@@ -92,6 +95,8 @@ namespace NationalParks
             return BiggestParks;
         }
 
+        // Lists ten smallest National Parks 
+    
         public List<Park> MinAcres()
         {
             List<Park> SmallestParks = new List<Park>();
@@ -116,6 +121,8 @@ namespace NationalParks
             return QueriedParks;
         }
 
+        // Suggests park using list of parks based on partial entry
+
         public string SuggestAPark(IEnumerable QueriedParks)
         {
             Console.WriteLine("");
@@ -132,8 +139,9 @@ namespace NationalParks
             string name = Console.ReadLine();
             return name;
 
-
         }
+
+        // Displays states a park is in as well as number of acres
 
         public void DisplayPark(Park park)
         {

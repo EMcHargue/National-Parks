@@ -378,6 +378,10 @@ namespace NationalParks
                     Console.Clear();
 
                 }
+                else
+                {
+                    Console.Clear();
+                }
             }
         }
     }
